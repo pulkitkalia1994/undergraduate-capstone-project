@@ -1,0 +1,24 @@
+#!/bin/bash
+
+
+/usr/local/bin/gpio mode 0 in
+
+while true; do 
+
+x=&(/usr/local/bin/gpio read 0)
+
+if [ $x -eq 1 ]
+echo $x
+sleep 0.5
+else 
+/usr/local/bin/gpio mode 1 pwm
+/usr/local/bin/gpio pwm-ms
+/usr/local/bin/gpio pwmc 192
+/usr/local/bin/gpio pwmr 2000
+/usr/local/bin/gpio pwm 1 220
+sleep 0.5
+/usr/local/bin/gpio pwm 1 0
+python /home/pi/connection.py
+fi
+
+done
